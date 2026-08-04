@@ -1,0 +1,55 @@
+.........................................................................STEPS:........................................................................
+First I install Epic Games Launcher and created an account using temp mail
+Then head to libraries (top bar), and install Unreal Engine 4.27.x
+Then I install AirSim-main(must) and other releases of AirSim(your choice) from github.com/Microsoft/AirSim/releases
+Unzip it
+then run the AirSimNH.exe (or any other of your choice) file
+press no for drone
+it will automatically open the environment with drone in it
+Install Python 3.11.x I'm using 3.11.9 (but others also work I checked 3.10.x as well, but 3.13 failed so stick with this)
+it is available for doenlaod from official website
+running "py -0p" shows all different python versions installed on your system
+now check version using "python --version", it should return the version number of python currently in use
+you may wanna use "py" instead of "python" as sometimes it gives error (but remember using "py" may skip the environment)
+create a virtual environment in your project folder(if youve made one) by cmd into that directoory and running "py -3.11 -m venv .venv"
+(you may wanna change the python number to your installed one) doing this will always sytart teh virtual environment with that specific python
+and doesnt depend on how many different python versions exist in you system
+activate teh environment using ".venv\Scripts\activate"
+run "py -m pip install --upgrade pip setuptools wheel"
+install numpy and other libraries using "py -m pip install numpy msgpack-rpc-python opencv-python"
+python doesnt officiallty support real time keyboard inputs, for that we need to install "py -m pip install keyboard"
+now keep the virtual environment running and dont close it
+go to the PythonClient folder directory using command "cd xxxxx...." 
+this will keep the virtual environment activated (closing cmd will close the environment aswell, so dont close just "cd xxxx..." to the PythonClient)
+run "set PYTHONPATH=%CD%"
+=========================================================================================================================================================
+now goto multirotor directory and paste the following file in there:
+1_air_control.py
+run this python file using "python xxxxxxxxxx.py"
+the files will only run properly when side by side teh environment is loaded with the drone in it
+
+NOW THE DRONE IS WORKING GREAT AND THE NEXT STEPS ARE TO USE ML MODEL TO DETECT THE VARIOUS SIMULATED OBJECTS IN THE SIMULATION
+=========================================================================================================================================================
+"py -m pip install ultralytics"
+install "https://aka.ms/vs/17/release/vc_redist.x64.exe"
+install "pip install PyQt5"
+v
+now goto multirotor directory and paste the following file in there:
+1_airsim_yolo_live.py
+run this python file using "python xxxxxxxxxx.py"
+change teh resolution in the code of airsim_yolo_live.py to your desktop one (currently 1366 x 768)
+
+IT IS WORKING GREAT, it opens a new Transparent Window and infull screen mode it shows boxes which act like there are on top of the existing screen with cars
+=========================================================================================================================================================
+now goto multirotor directory and paste the following file in there:
+1_depth_nav.py
+1_print_coords.py
+
+run the 1_print_coords.py and take the drone using the old script 1_air_control.py (running in another cmd activated using old methods as i talked above) to some location
+copy the x and y coordinates to the 1_depth_nav.py script and run it
+
+Press W and S to increase and decrease the drone speed
+A new indow opens shoing the live Depth Coloured image of Drone FPV
+The Drone shodul now be successfully navigating tpowrds the destination assigned to it in previous step with obstacle avoidance
+for removing the vibration in the drone, tune the Kp and Kd terms 
+=========================================================================================================================================================
